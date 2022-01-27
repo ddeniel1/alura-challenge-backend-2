@@ -1,13 +1,11 @@
 package application.repository;
 
 import application.entities.Despesa;
-import application.entities.Receita;
 import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface DespesaRepository extends JpaRepository<Despesa, Integer> {
 

@@ -1,11 +1,12 @@
 package application.entities;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
 
@@ -23,9 +24,20 @@ public class Despesa {
     @Column(name = "valor", nullable = false)
     private Double valor;
 
-    @Convert(disableConversion = true)
     @Column(name = "data", nullable = false)
     private LocalDate data;
+
+    @ManyToOne
+    @JoinColumn(name = "categoria")
+    private Categoria categoria;
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 
     public LocalDate getData() {
         return data;
