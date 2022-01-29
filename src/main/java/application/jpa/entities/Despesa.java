@@ -1,17 +1,18 @@
-package application.entities;
+package application.jpa.entities;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "receitas")
-public class Receita {
+@Table(name = "despesas")
+public class Despesa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -23,9 +24,20 @@ public class Receita {
     @Column(name = "valor", nullable = false)
     private Double valor;
 
-    @Convert(disableConversion = true)
     @Column(name = "data", nullable = false)
     private LocalDate data;
+
+    @ManyToOne
+    @JoinColumn(name = "categoria")
+    private Categoria categoria;
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 
     public LocalDate getData() {
         return data;
