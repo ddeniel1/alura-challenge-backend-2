@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.transaction.Transactional;
@@ -107,8 +108,12 @@ public class DespesaController {
 
 
     @GetMapping("/despesas")
-    public ResponseEntity<List<Despesa>> getDespesas() {
-        return ResponseEntity.ok(despesaService.findAll());
+    public ResponseEntity<List<Despesa>> getDespesas(@RequestParam(defaultValue = "", required = false) String descricao) {
+        return ResponseEntity.ok(despesaService.findAllByDescricao(descricao));
+    }
+    @GetMapping("/despesas/{year}/{month}")
+    public ResponseEntity<List<Despesa>> getDespesas(@PathVariable int year, @PathVariable short month) {
+        return ResponseEntity.ok(despesaService.findAllByYearAndMonth(year, month));
     }
 
     @GetMapping("/despesas/{id}")

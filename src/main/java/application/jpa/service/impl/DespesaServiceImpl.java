@@ -36,7 +36,7 @@ public class DespesaServiceImpl implements DespesaService {
         Month month = despesa.getData().getMonth();
         String descricao = despesa.getDescricao();
 
-        List<Despesa> despesaList = repository.findAllByDescricaoAndData_Month(descricao, month.getValue());
+        List<Despesa> despesaList = repository.findAllByDescricaoAndData_Month(descricao, (short) month.getValue());
         if (despesaList.size() > 0){
             if (despesaList.size() == 1 && despesa.getId().equals(despesaList.get(0).getId()))
                 return null;
@@ -86,6 +86,17 @@ public class DespesaServiceImpl implements DespesaService {
         if (validateDespesa != null) return validateDespesa;
         novaDespesa.setCategoria(validateCategory(novaDespesa.getCategoria()));
         return ResponseEntity.ok(repository.save(novaDespesa));
+    }
+
+    @Override
+    public List<Despesa> findAllByDescricao(String descricao) {
+        if (descricao.equals("")) return findAll();
+        return repository.findAllByDescricao(descricao);
+    }
+
+    @Override
+    public List<Despesa> findAllByYearAndMonth(int year, short month) {
+        return repository.findAllByData_YearAndData_Month(year, month);
     }
 
     private Categoria validateCategory(Categoria categoria) {

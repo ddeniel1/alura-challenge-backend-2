@@ -1,5 +1,6 @@
 package application.jpa.service;
 
+import application.jpa.entities.Despesa;
 import application.jpa.entities.Receita;
 import org.springframework.http.ResponseEntity;
 
@@ -19,4 +20,8 @@ public interface ReceitaService {
     List<Receita> findAll();
 
     ResponseEntity<Receita> createReceitaFromString(Receita novaReceita);
+
+    List<Receita> findAllByDescricao(String descricao);
+
+    List<Despesa> findAllByYearAndMonth(int year, short month);
 }

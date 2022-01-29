@@ -1,6 +1,7 @@
 package application.jpa.service.impl;
 
 import application.jpa.entities.Categoria;
+import application.jpa.entities.Despesa;
 import application.jpa.entities.Receita;
 import application.jpa.repository.ReceitaRepository;
 import application.jpa.service.CategoriaService;
@@ -86,6 +87,17 @@ public class ReceitaServiceImpl implements ReceitaService {
         if (validateReceita != null) return validateReceita;
         novaReceita.setCategoria(validateCategory(novaReceita.getCategoria()));
         return ResponseEntity.ok(repository.save(novaReceita));
+    }
+
+    @Override
+    public List<Receita> findAllByDescricao(String descricao) {
+        if (descricao.equals("")) return findAll();
+        return repository.findAllByDescricao(descricao);
+    }
+
+    @Override
+    public List<Despesa> findAllByYearAndMonth(int year, short month) {
+        return repository.findAllByData_YearAndData_Month(year, month);
     }
 
     private Categoria validateCategory(Categoria categoria) {

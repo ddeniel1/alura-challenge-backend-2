@@ -2,6 +2,7 @@ package application.jpa.service;
 
 import application.jpa.entities.Despesa;
 import org.springframework.http.ResponseEntity;
+import sun.security.krb5.internal.crypto.Des;
 
 import java.util.List;
 
@@ -19,4 +20,8 @@ public interface DespesaService {
     List<Despesa> findAll();
 
     ResponseEntity<Despesa> createDespesaFromString(Despesa novaDespesa);
+
+    List<Despesa> findAllByDescricao(String descricao);
+
+    List<Despesa> findAllByYearAndMonth(int year, short month);
 }

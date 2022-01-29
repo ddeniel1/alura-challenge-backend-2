@@ -1,5 +1,6 @@
 package application.jpa.repository;
 
+import application.jpa.entities.Despesa;
 import application.jpa.entities.Receita;
 import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,4 +28,12 @@ public interface ReceitaRepository extends CrudRepository<Receita, Integer> {
             "WHERE id = ?1",
             nativeQuery = true)
     void update(Integer id, String descricao, Double valor, LocalDate data, Integer idCategoria);
+
+    List<Receita> findAllByDescricao(String descricao);
+
+    @Query(value = "SELECT * from receitas " +
+            "where EXTRACT(YEAR FROM data)=?1 " +
+            "and EXTRACT(MONTH FROM data)=?2",
+            nativeQuery = true)
+    List<Despesa> findAllByData_YearAndData_Month(int year, short month);
 }

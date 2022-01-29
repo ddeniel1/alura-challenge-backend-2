@@ -1,5 +1,6 @@
 package application.api.controller;
 
+import application.jpa.entities.Despesa;
 import application.jpa.entities.Receita;
 import application.jpa.entities.Receita;
 import application.jpa.repository.ReceitaRepository;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.transaction.Transactional;
@@ -106,8 +108,13 @@ public class ReceitaController {
 
 
     @GetMapping("/receitas")
-    public ResponseEntity<List<Receita>> getReceitas() {
-        return ResponseEntity.ok(receitaService.findAll());
+    public ResponseEntity<List<Receita>> getReceitas(@RequestParam(defaultValue = "", required = false) String descricao) {
+        return ResponseEntity.ok(receitaService.findAllByDescricao(descricao));
+    }
+
+    @GetMapping("/despesas/{year}/{month}")
+    public ResponseEntity<List<Despesa>> getReceitas(@PathVariable int year, @PathVariable short month) {
+        return ResponseEntity.ok(receitaService.findAllByYearAndMonth(year, month));
     }
 
     @GetMapping("/receitas/{id}")

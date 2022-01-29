@@ -5,9 +5,12 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import sun.security.krb5.internal.crypto.Des;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
 import java.util.List;
 
 @Repository
@@ -21,7 +24,7 @@ public interface DespesaRepository extends CrudRepository<Despesa, Integer> {
             "where descricao=?1 " +
             "and EXTRACT(MONTH FROM data)=?2",
             nativeQuery = true)
-    List<Despesa> findAllByDescricaoAndData_Month(String descricao, int month);
+    List<Despesa> findAllByDescricaoAndData_Month(String descricao, short month);
 
     @Modifying
     @Query(value = "UPDATE despesas " +
@@ -29,4 +32,12 @@ public interface DespesaRepository extends CrudRepository<Despesa, Integer> {
             "WHERE id = ?1",
             nativeQuery = true)
     void update(Integer id, String descricao, Double valor, LocalDate data, Integer categoria);
+
+    List<Despesa> findAllByDescricao(String descricao);
+
+    @Query(value = "SELECT * from despesas " +
+            "where EXTRACT(YEAR FROM data)=?1 " +
+            "and EXTRACT(MONTH FROM data)=?2",
+            nativeQuery = true)
+    List<Despesa> findAllByData_YearAndData_Month(int year, short month);
 }
