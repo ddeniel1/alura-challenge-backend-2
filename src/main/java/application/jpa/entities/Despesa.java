@@ -1,4 +1,4 @@
-package application.entities;
+package application.jpa.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

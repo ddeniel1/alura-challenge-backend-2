@@ -24,11 +24,11 @@ CREATE TABLE despesas
     CONSTRAINT fk_categoria FOREIGN KEY (categoria) REFERENCES categoria (id)
 );
 
-INSERT INTO categoria(descricao)
-VALUES ('Alimentação'),
-       ('Saúde'),
-       ('Moradia'),
-       ('Transporte'),
-       ('Lazer'),
-       ('Imprevistos'),
-       ('Outras');
+INSERT INTO categoria(id,descricao)
+VALUES (1,'Alimentação'),
+       (2,'Saúde'),
+       (3,'Moradia'),
+       (4,'Transporte'),
+       (5,'Lazer'),
+       (6,'Imprevistos'),
+       (7,'Outras');
