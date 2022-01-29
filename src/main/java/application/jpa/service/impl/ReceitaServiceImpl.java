@@ -1,7 +1,6 @@
 package application.jpa.service.impl;
 
 import application.jpa.entities.Categoria;
-import application.jpa.entities.Despesa;
 import application.jpa.entities.Receita;
 import application.jpa.repository.ReceitaRepository;
 import application.jpa.service.CategoriaService;
@@ -10,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.Month;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,11 +33,11 @@ public class ReceitaServiceImpl implements ReceitaService {
     }
 
     public ResponseEntity<Receita> validateReceita(Receita receita) {
-        Month month = receita.getData().getMonth();
+        LocalDate localDate = receita.getData();
         String descricao = receita.getDescricao();
 
-        List<Receita> receitaList = repository.findAllByDescricaoAndData_Month(descricao, month.getValue());
-        if (receitaList.size() > 0){
+        List<Receita> receitaList = repository.findAllByDescricaoAndData_YearAndData_Month(descricao, localDate.getYear(), localDate.getMonth().getValue());
+        if (receitaList.size() > 0) {
             if (receitaList.size() == 1 && receita.getId().equals(receitaList.get(0).getId()))
                 return null;
             return ResponseEntity.unprocessableEntity().body(receita);
@@ -96,7 +95,7 @@ public class ReceitaServiceImpl implements ReceitaService {
     }
 
     @Override
-    public List<Despesa> findAllByYearAndMonth(int year, short month) {
+    public List<Receita> findAllByYearAndMonth(int year, short month) {
         return repository.findAllByData_YearAndData_Month(year, month);
     }
 

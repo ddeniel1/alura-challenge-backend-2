@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.Month;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,11 +33,11 @@ public class DespesaServiceImpl implements DespesaService {
     }
 
     public ResponseEntity<Despesa> validateDespesa(Despesa despesa) {
-        Month month = despesa.getData().getMonth();
+        LocalDate localDate = despesa.getData();
         String descricao = despesa.getDescricao();
 
-        List<Despesa> despesaList = repository.findAllByDescricaoAndData_Month(descricao, (short) month.getValue());
-        if (despesaList.size() > 0){
+        List<Despesa> despesaList = repository.findAllByDescricaoAndData_YearAndData_Month(descricao, localDate.getYear(), localDate.getMonth().getValue());
+        if (despesaList.size() > 0) {
             if (despesaList.size() == 1 && despesa.getId().equals(despesaList.get(0).getId()))
                 return null;
             return ResponseEntity.unprocessableEntity().body(despesa);

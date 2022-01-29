@@ -1,9 +1,6 @@
 package application.api.controller;
 
-import application.jpa.entities.Despesa;
 import application.jpa.entities.Receita;
-import application.jpa.entities.Receita;
-import application.jpa.repository.ReceitaRepository;
 import application.jpa.service.CategoriaService;
 import application.jpa.service.ReceitaService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -28,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,16 +33,13 @@ import java.util.Random;
 @RestController("receita")
 public class ReceitaController {
 
+    static private final Logger LOGGER = LoggerFactory.getLogger(ReceitaController.class);
     @Autowired
     ObjectMapper objectMapper;
-
     @Autowired
     private ReceitaService receitaService;
-
     @Autowired
     private CategoriaService categoriaService;
-
-    static private final Logger LOGGER = LoggerFactory.getLogger(ReceitaController.class);
 
     @PostMapping("/receitas")
     public ResponseEntity<?> createReceita(@RequestBody String receitaString) {
@@ -112,8 +105,8 @@ public class ReceitaController {
         return ResponseEntity.ok(receitaService.findAllByDescricao(descricao));
     }
 
-    @GetMapping("/despesas/{year}/{month}")
-    public ResponseEntity<List<Despesa>> getReceitas(@PathVariable int year, @PathVariable short month) {
+    @GetMapping("/receitas/{year}/{month}")
+    public ResponseEntity<List<Receita>> getReceitas(@PathVariable int year, @PathVariable short month) {
         return ResponseEntity.ok(receitaService.findAllByYearAndMonth(year, month));
     }
 

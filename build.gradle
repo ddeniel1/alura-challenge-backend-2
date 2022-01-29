@@ -12,7 +12,7 @@ mainClassName = "main.java.ApplicationStart"
 group 'alura'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 1.11
 
 repositories {
     mavenCentral()

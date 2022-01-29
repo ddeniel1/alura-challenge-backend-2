@@ -14,14 +14,12 @@ import org.springframework.hateoas.mediatype.problem.Problem;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,21 +30,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-@RequestMapping("/api")
 @RestController("despesa")
-@CrossOrigin(origins = "*")
 public class DespesaController {
 
+    static private final Logger LOGGER = LoggerFactory.getLogger(DespesaController.class);
     @Autowired
     ObjectMapper objectMapper;
-
     @Autowired
     private DespesaService despesaService;
-
     @Autowired
     private CategoriaService categoriaService;
-
-    static private final Logger LOGGER = LoggerFactory.getLogger(DespesaController.class);
 
     @PostMapping("/despesas")
     public ResponseEntity<?> createDespesa(@RequestBody String despesaString) {
@@ -111,6 +104,7 @@ public class DespesaController {
     public ResponseEntity<List<Despesa>> getDespesas(@RequestParam(defaultValue = "", required = false) String descricao) {
         return ResponseEntity.ok(despesaService.findAllByDescricao(descricao));
     }
+
     @GetMapping("/despesas/{year}/{month}")
     public ResponseEntity<List<Despesa>> getDespesas(@PathVariable int year, @PathVariable short month) {
         return ResponseEntity.ok(despesaService.findAllByYearAndMonth(year, month));

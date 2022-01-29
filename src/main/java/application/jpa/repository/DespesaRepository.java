@@ -4,13 +4,11 @@ import application.jpa.entities.Despesa;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
-import sun.security.krb5.internal.crypto.Des;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.Year;
 import java.util.List;
 
 @Repository
@@ -18,13 +16,15 @@ import java.util.List;
 public interface DespesaRepository extends CrudRepository<Despesa, Integer> {
 
     @Override
+    @NonNull
     List<Despesa> findAll();
 
     @Query(value = "SELECT * from despesas " +
-            "where descricao=?1 " +
-            "and EXTRACT(MONTH FROM data)=?2",
+            "WHERE descricao=?1 " +
+            "AND EXTRACT(YEAR FROM data)=?2 " +
+            "AND EXTRACT(MONTH FROM data)=?3",
             nativeQuery = true)
-    List<Despesa> findAllByDescricaoAndData_Month(String descricao, short month);
+    List<Despesa> findAllByDescricaoAndData_YearAndData_Month(String descricao, int year, int month);
 
     @Modifying
     @Query(value = "UPDATE despesas " +
