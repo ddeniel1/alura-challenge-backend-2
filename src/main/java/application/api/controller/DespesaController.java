@@ -47,7 +47,7 @@ public class DespesaController {
             Map<String, String> despesaMap = objectMapper.readerForMapOf(String.class)
                     .readValue(despesaString);
             Despesa despesa = createDespesaFromMap(despesaMap);
-            return despesaService.createDespesaFromString(despesa);
+            return despesaService.createDespesa(despesa);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         } catch (RuntimeException e) {
@@ -90,7 +90,7 @@ public class DespesaController {
             novaDespesa.setValor(Math.pow(i, 3));
             novaDespesa.setData(LocalDate.now());
             novaDespesa.setCategoria(categoriaService.findById(new Random().nextInt(6) + 1));
-            if (despesaService.createDespesaFromString(novaDespesa).getStatusCode().is2xxSuccessful()) {
+            if (despesaService.createDespesa(novaDespesa).getStatusCode().is2xxSuccessful()) {
                 responses.add(novaDespesa.getDescricao() + " adicionado com sucesso");
             } else responses.add(novaDespesa.getDescricao() + " não foi adicionado");
 

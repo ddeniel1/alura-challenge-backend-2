@@ -81,7 +81,7 @@ public class DespesaServiceImpl implements DespesaService {
     }
 
     @Override
-    public ResponseEntity<Despesa> createDespesaFromString(Despesa novaDespesa) {
+    public ResponseEntity<Despesa> createDespesa(Despesa novaDespesa) {
         ResponseEntity<Despesa> validateDespesa = validateDespesa(novaDespesa);
         if (validateDespesa != null) return validateDespesa;
         novaDespesa.setCategoria(validateCategory(novaDespesa.getCategoria()));
