@@ -14,14 +14,7 @@ import org.springframework.hateoas.mediatype.problem.Problem;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -106,12 +99,12 @@ public class DespesaController {
     }
 
     @GetMapping("/despesas/{year}/{month}")
-    public ResponseEntity<List<Despesa>> getDespesas(@PathVariable int year, @PathVariable short month) {
+    public ResponseEntity<List<Despesa>> getDespesasByYearAndMonth(@PathVariable int year, @PathVariable short month) {
         return ResponseEntity.ok(despesaService.findAllByYearAndMonth(year, month));
     }
 
     @GetMapping("/despesas/{id}")
-    public ResponseEntity<Despesa> getDespesa(@PathVariable Integer id) {
+    public ResponseEntity<Despesa> getDespesaById(@PathVariable Integer id) {
         return despesaService.getDespesaResponseEntity(id);
     }
 
