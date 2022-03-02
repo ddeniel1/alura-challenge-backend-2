@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
 
 @Service
 public class CategoriaServiceImpl implements CategoriaService {
@@ -30,12 +29,12 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     @Override
     public Categoria getOutras() {
-        return categoriaRepository.findByDescricao("Outras").get();
+        return categoriaRepository.findByDescricao("Outras").orElseThrow(RuntimeException::new);
     }
 
     @Override
     public Categoria findById(int i) {
-        return categoriaRepository.findById(new Random().nextInt(6) + 1).get();
+        return categoriaRepository.findById(i).orElseThrow(RuntimeException::new);
     }
 
 }

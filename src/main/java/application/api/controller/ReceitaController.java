@@ -47,7 +47,7 @@ public class ReceitaController {
             Map<String, String> receitaMap = objectMapper.readerForMapOf(String.class)
                     .readValue(receitaString);
             Receita receita = createReceitaFromMap(receitaMap);
-            return receitaService.createReceitaFromString(receita);
+            return receitaService.createReceita(receita);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         } catch (RuntimeException e) {
@@ -90,7 +90,7 @@ public class ReceitaController {
             novaReceita.setValor(Math.pow(i, 3));
             novaReceita.setData(LocalDate.now());
             novaReceita.setCategoria(categoriaService.findById(new Random().nextInt(6) + 1));
-            if (receitaService.createReceitaFromString(novaReceita).getStatusCode().is2xxSuccessful()) {
+            if (receitaService.createReceita(novaReceita).getStatusCode().is2xxSuccessful()) {
                 responses.add(novaReceita.getDescricao() + " adicionado com sucesso");
             } else responses.add(novaReceita.getDescricao() + " não foi adicionado");
 

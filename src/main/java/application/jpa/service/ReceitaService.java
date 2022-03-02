@@ -18,7 +18,7 @@ public interface ReceitaService {
 
     List<Receita> findAll();
 
-    ResponseEntity<Receita> createReceitaFromString(Receita novaReceita);
+    ResponseEntity<Receita> createReceita(Receita novaReceita);
 
     List<Receita> findAllByDescricao(String descricao);
 
