@@ -81,7 +81,7 @@ public class ReceitaServiceImpl implements ReceitaService {
     }
 
     @Override
-    public ResponseEntity<Receita> createReceitaFromString(Receita novaReceita) {
+    public ResponseEntity<Receita> createReceita(Receita novaReceita) {
         ResponseEntity<Receita> validateReceita = validateReceita(novaReceita);
         if (validateReceita != null) return validateReceita;
         novaReceita.setCategoria(validateCategory(novaReceita.getCategoria()));

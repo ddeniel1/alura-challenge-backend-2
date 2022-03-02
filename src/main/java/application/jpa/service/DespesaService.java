@@ -18,7 +18,7 @@ public interface DespesaService {
 
     List<Despesa> findAll();
 
-    ResponseEntity<Despesa> createDespesaFromString(Despesa novaDespesa);
+    ResponseEntity<Despesa> createDespesa(Despesa novaDespesa);
 
     List<Despesa> findAllByDescricao(String descricao);
 
