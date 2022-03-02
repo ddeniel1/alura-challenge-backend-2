@@ -33,4 +33,17 @@ public class Categoria {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public static Categoria builder(){
+        return new Categoria();
+    }
+
+    public Categoria addDescricao(String descricao){
+        this.setDescricao(descricao);
+        return this;
+    }
+    public Categoria addId(Integer id){
+        this.setId(id);
+        return this;
+    }
 }
