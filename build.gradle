@@ -8,11 +8,9 @@ plugins {
 
 apply plugin: 'idea'
 apply plugin: 'application'
-mainClassName = "main.java.ApplicationStart"
 group 'alura'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.11
 
 repositories {
     mavenCentral()
@@ -30,8 +28,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     implementation 'org.springframework.boot:spring-boot-starter-jersey'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.codehaus.groovy:groovy'
-    implementation 'org.postgresql:postgresql:42.3.1'
+    implementation 'org.postgresql:postgresql:42.3.2'
     implementation 'io.springfox:springfox-swagger2:3.0.0'
     implementation 'io.springfox:springfox-swagger-ui:2.9.2'
 
